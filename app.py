@@ -1,10 +1,16 @@
 from aiogram import Bot, Dispatcher, executor, types
 import sqlite3
 import emoji
+import os
+from dotenv import load_dotenv
 
-# Connect to the SQLite3 database
+load_dotenv()
+
+#Connect to the SQLite3 database
 conn = sqlite3.connect('filmsdb.db')
 cursor = conn.cursor()
+
+
 
 
 def get_random_film() -> dict:
@@ -26,7 +32,7 @@ def get_random_film() -> dict:
     return None
 
 
-bot = Bot("5628106360:AAFMhRgtwbEAo02yHg0kMHY6oORV0nJGfMk")
+bot = Bot(os.environ.get('TOKEN_BOT'))
 dp = Dispatcher(bot)
 
 
