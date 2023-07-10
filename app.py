@@ -36,7 +36,19 @@ bot = Bot(os.environ.get('TOKEN_BOT'))
 dp = Dispatcher(bot)
 
 
+
 @dp.message_handler(commands=['start'])
+async def start(message: types.Message):
+  image = open('cinema.jpeg', 'rb')
+  user = message.from_user.first_name
+  greeting = f"Welcome {user} ! This is a free movie random adviser \n "
+  
+  keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+  keyboard.add('Get a random movie')
+  await bot.send_photo(message.chat.id, image, caption=greeting, reply_markup=keyboard)
+
+
+@dp.message_handler(text='Get a random movie')
 async def start(message: types.Message):
     film = get_random_film()
     title = film['title']
